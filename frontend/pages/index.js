@@ -1,5 +1,9 @@
 // import Head from 'next/head'
 
 export default function Index() {
-  return <div>Index</div>;
+  return (
+    <div>
+      <h1>Index</h1>
+    </div>
+  );
 }
