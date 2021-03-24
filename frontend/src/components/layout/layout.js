@@ -9,7 +9,7 @@ function Layout({ data, children }) {
         <link rel="shortcut icon" href={data?.header?.favicon || ""} />
       </Head>
       <Header header={data?.header} headerMenus={data?.menus?.headerMenus} />
-      {children}
+      <div className={"h-almost-screen"}>{children}</div>
       <Footer footer={data?.footer} footerMenus={data?.menus?.footerMenus} />
     </div>
   );
