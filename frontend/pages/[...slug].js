@@ -1,6 +1,7 @@
 import client from "../src/apollo/client";
 import { GET_PAGES_URI, GET_PAGE } from "../src/queries/pages/get-pages";
 import { useRouter } from "next/router";
+import Layout from "../src/components/layout/layout";
 function Pages({ data }) {
   const router = useRouter();
 
@@ -10,7 +11,7 @@ function Pages({ data }) {
   }
 
   //
-  return <div>Pages template</div>;
+  return <Layout>{router?.query?.slug.join("/")}</Layout>;
 }
 export default Pages;
 
