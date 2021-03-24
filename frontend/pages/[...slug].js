@@ -1,7 +1,10 @@
 import client from "../src/apollo/client";
-import { GET_PAGES_URI, GET_PAGE } from "../src/queries/pages/get-pages";
+import { GET_PAGES_URI } from "../src/queries/pages/get-pages";
+import { GET_PAGE } from "../src/queries/pages/get-page";
 import { useRouter } from "next/router";
 import Layout from "../src/components/layout/layout";
+import { isCustomPageUri } from "../src/utils/slugs";
+import { isEmpty } from "lodash";
 function Pages({ data }) {
   const router = useRouter();
 
@@ -11,7 +14,7 @@ function Pages({ data }) {
   }
 
   //
-  return <Layout>{router?.query?.slug.join("/")}</Layout>;
+  return <Layout data={data}>{router?.query?.slug.join("/")}</Layout>;
 }
 export default Pages;
 
@@ -33,7 +36,9 @@ export async function getStaticProps({ params }) {
           headerMenus: data?.headerMenus?.edges || [],
           footerMenus: data?.footerMenus?.edges || []
         },
-        footer: data?.footer || []
+        footer: data?.footer || [],
+        page: data?.page ?? {},
+        path: params?.slug.join("/")
       }
     },
     /**
@@ -72,8 +77,9 @@ export async function getStaticPaths() {
 
   data?.pages?.nodes &&
     data?.pages?.nodes.map(page => {
+      // dont build customPageUri or empty slugs
       if (!isEmpty(page?.uri) && !isCustomPageUri(page?.uri)) {
-        // dont return falsy values
+        // for slug = /foo/bar === [foo,bar]
         const slugs = page?.uri?.split("/").filter(pageSlug => pageSlug);
         pathsData.push({ params: { slug: slugs } });
       }
@@ -83,6 +89,6 @@ export async function getStaticPaths() {
     // at build
     paths: pathsData,
     // generate if exists on request - don't 404
-    fallback: FALLBACK
+    fallback: true
   };
 }
