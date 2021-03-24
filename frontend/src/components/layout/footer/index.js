@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { isEmpty, isArray } from "lodash";
 import { sanitize } from "../../../utils/misc";
+import { getIconComponentByName } from "../../../utils/icons-map";
 function Footer({ footer, footerMenus }) {
   if (isEmpty(footerMenus)) return null;
 
@@ -47,8 +48,7 @@ function Footer({ footer, footerMenus }) {
               {footer.socialLinks.map(socialLink => (
                 <li key={socialLink?.iconName} className="ml-4">
                   <a href={socialLink?.iconUrl}>
-                    :D
-                    {/* {getIconComponentByName(socialLink?.iconName)} */}
+                    {getIconComponentByName(socialLink?.iconName)}
                   </a>
                 </li>
               ))}
