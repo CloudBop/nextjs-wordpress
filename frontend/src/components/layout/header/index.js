@@ -1,9 +1,9 @@
 import Nav from "./nav";
 
-function Header({ headerMenus }) {
+function Header({ headerMenus, header }) {
   return (
     <header>
-      <Nav headerMenus={headerMenus} />
+      <Nav header={header} headerMenus={headerMenus} />
     </header>
   );
 }
