@@ -1,12 +1,13 @@
 // import Head from 'next/head'
 import client from "../src/apollo/client";
+import Layout from "../src/components/layout/layout";
 import { GET_MENUS } from "../src/queries/get-menus";
-export default function Index({ menus }) {
-  console.log(`menus`, menus);
+export default function Index({ data }) {
+  console.log(`data`, data);
   return (
-    <div>
+    <Layout data={data}>
       <h1 className={"text-lg leading-6 font-medium text-gray-900"}>Index</h1>
-    </div>
+    </Layout>
   );
 }
 
@@ -17,9 +18,11 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      menus: {
-        headerMenus: data?.headerMenus?.edges,
-        footerMenus: data?.footerMenus?.edges
+      data: {
+        menus: {
+          headerMenus: data?.headerMenus?.edges,
+          footerMenus: data?.footerMenus?.edges
+        }
       }
     }
   };
