@@ -35,7 +35,7 @@ const Nav = ({ header, headerMenus }) => {
         <button
           onClick={() => setMenuVisibility(!isMenuVisible)}
           className="flex items-center px-3 py-2 border rounded text-green-200 border-green-400 hover:text-white hover:border-white"
-          data-cy="mmenu-btn"
+          data-cy="menu-btn"
         >
           <svg
             className="fill-current h-3 w-3"
