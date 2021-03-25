@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { PRE_RENDER_PAGES_COUNT } from "../../utils/slugs";
 
 /**
  * Get pages.
@@ -6,7 +7,8 @@ import { gql } from "@apollo/client";
  */
 export const GET_PAGES_URI = gql`
   query GET_PAGES_URI {
-    pages: pages(last: 1) {
+    # limit number of pre-rendered pages
+    pages: pages(first: ${PRE_RENDER_PAGES_COUNT}}) {
       nodes {
         id
         uri

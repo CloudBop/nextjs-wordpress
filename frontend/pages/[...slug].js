@@ -4,6 +4,7 @@ import { GET_PAGE } from "../src/queries/pages/get-page";
 import { useRouter } from "next/router";
 import Layout from "../src/components/layout/layout";
 import {
+  FALLBACK,
   handleRedirectsAndReturnData,
   isCustomPageUri
 } from "../src/utils/slugs";
@@ -81,7 +82,8 @@ export async function getStaticPaths() {
   return {
     // at build
     paths: pathsData,
-    // generate if exists on request - don't 404
-    fallback: true
+    //true -  generate if exists on request - don't 404
+    // https://nextjs.org/docs/basic-features/data-fetching#fallback-true
+    fallback: FALLBACK
   };
 }

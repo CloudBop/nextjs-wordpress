@@ -5,7 +5,11 @@ export const isCustomPageUri = uri => {
 
   return pagesToExclude.includes(uri);
 };
-
+// properly 404
+// https://nextjs.org/blog/next-10#blocking-fallback-for-getstaticpaths
+export const FALLBACK = "blocking";
+// pages to pre-render SSR
+export const PRE_RENDER_PAGES_COUNT = 10;
 //
 // if data doesn't exist in wpgraphql
 //
