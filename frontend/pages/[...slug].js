@@ -3,7 +3,10 @@ import { GET_PAGES_URI } from "../src/queries/pages/get-pages";
 import { GET_PAGE } from "../src/queries/pages/get-page";
 import { useRouter } from "next/router";
 import Layout from "../src/components/layout/layout";
-import { isCustomPageUri } from "../src/utils/slugs";
+import {
+  handleRedirectsAndReturnData,
+  isCustomPageUri
+} from "../src/utils/slugs";
 import { isEmpty } from "lodash";
 function Pages({ data }) {
   const router = useRouter();
@@ -27,19 +30,9 @@ export async function getStaticProps({ params }) {
     }
   });
 
-  // const defaultProps =
-  return {
+  const defaultProps = {
     props: {
-      data: {
-        header: data?.header || [],
-        menus: {
-          headerMenus: data?.headerMenus?.edges || [],
-          footerMenus: data?.footerMenus?.edges || []
-        },
-        footer: data?.footer || [],
-        page: data?.page ?? {},
-        path: params?.slug.join("/")
-      }
+      data: data || {}
     },
     /**
      * Revalidate means that if a new request comes to server, then every 1 sec it will check
@@ -49,7 +42,7 @@ export async function getStaticProps({ params }) {
     revalidate: 1
   };
 
-  // return handleRedirectsAndReturnData(defaultProps, data, errors, "page");
+  return handleRedirectsAndReturnData(defaultProps, data, errors, "page");
 }
 /**
  * Since the page name uses catch-all routes,
