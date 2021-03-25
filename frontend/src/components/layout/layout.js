@@ -7,15 +7,8 @@ import { isEmpty } from "lodash";
 import { sanitize } from "../../utils/misc";
 
 function Layout({ data, children }) {
-  const {
-    page,
-    //TODO destructure all this
-    // post,
-    // posts
-    header,
-    footer,
-    menus
-  } = data || {};
+  const { page, header, footer, headerMenus, footerMenus } = data || {};
+
   // If it does not have either post or page.
   if (
     isEmpty(page)
@@ -40,9 +33,9 @@ function Layout({ data, children }) {
           />
         ) : null}
       </Head>
-      <Header header={header} headerMenus={menus?.headerMenus} />
+      <Header header={header} headerMenus={headerMenus.edges} />
       <div className={"h-almost-screen"}>{children}</div>
-      <Footer footer={footer} footerMenus={menus?.footerMenus} />
+      <Footer footer={footer} footerMenus={footerMenus.edges} />
     </div>
   );
 }

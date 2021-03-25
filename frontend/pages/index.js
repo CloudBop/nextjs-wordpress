@@ -2,6 +2,7 @@
 import client from "../src/apollo/client";
 import Layout from "../src/components/layout/layout";
 import { GET_PAGE } from "../src/queries/pages/get-page";
+import { handleRedirectsAndReturnData } from "../src/utils/slugs";
 export default function Index({ data }) {
   return (
     <Layout data={data}>
@@ -11,25 +12,23 @@ export default function Index({ data }) {
 }
 
 export async function getStaticProps(context) {
-  const { data, loading, networkStatus } = await client.query({
+  const {
+    data,
+    errors
+    // loading, networkStatus
+  } = await client.query({
     query: GET_PAGE,
     variables: {
       uri: "/"
     }
   });
 
-  return {
+  const defaultProps = {
     props: {
-      data: {
-        header: data?.header || [],
-        menus: {
-          headerMenus: data?.headerMenus?.edges || [],
-          footerMenus: data?.footerMenus?.edges || []
-        },
-        footer: data?.footer || [],
-        page: data?.page || []
-      }
+      data: data || {}
     },
     revalidate: 1
   };
+
+  return handleRedirectsAndReturnData(defaultProps, data, errors, "page");
 }
