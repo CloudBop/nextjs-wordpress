@@ -9,7 +9,8 @@
     "start": "next start",
     "svgr": "svgr -d src/components/icons src/components/icons/svgs",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "cypress:run:specific:cmd": "npm run cypress:run -- --spec 'cypress/integration/nav.spec.js' "
   },
   "dependencies": {
     "@apollo/client": "^3.3.12",
