@@ -1,8 +1,7 @@
-
-import { gql } from '@apollo/client'
-import MenuFragment from '../fragments/menus'
+import { gql } from "@apollo/client";
+import MenuFragment from "../fragments/menus";
 import SeoFragment from "../fragments/seo";
-import {HeaderFooter} from "../get-menus";
+import { HeaderFooter } from "../get-menus";
 import ImageFragment from "../fragments/image";
 
 /**
@@ -22,6 +21,7 @@ export const GET_POSTS = gql`
       ...SeoFragment
     }
   }
+  # 'slice' of paginated posts
   posts: posts(where: { offsetPagination: { size: $perPage, offset: $offset }}) {
     edges {
       node {
@@ -50,7 +50,7 @@ export const GET_POSTS = gql`
 
 export const GET_TOTAL_POSTS_COUNT = gql`
   query GET_TOTAL_POSTS_COUNT {
-  postsCount: posts {
+    postsCount: posts {
       pageInfo {
         offsetPagination {
           total
@@ -58,19 +58,19 @@ export const GET_TOTAL_POSTS_COUNT = gql`
       }
     }
   }
-`
+`;
 
 /**
  * Get post slugs.
  *
  */
 export const GET_POST_SLUGS = gql`
- query GET_POST_SLUGS {
-  posts: posts(last: 1) {
-    nodes {
-      id
-      slug
+  query GET_POST_SLUGS {
+    posts: posts(last: 1) {
+      nodes {
+        id
+        slug
+      }
     }
   }
- }
- `;
+`;
