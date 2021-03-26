@@ -13,7 +13,7 @@ function Layout({ data, isPost, children }) {
     return null;
   }
 
-  // layout could be differ on  template
+  //
   const seo = isPost ? post?.seo ?? {} : page?.seo ?? {};
   const uri = isPost ? post?.uri ?? {} : page?.uri ?? {};
 

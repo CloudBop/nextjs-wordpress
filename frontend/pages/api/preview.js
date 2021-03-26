@@ -2,6 +2,7 @@ import { getAuthToken } from "../../src/utils/cookies";
 import { isEmpty } from "lodash";
 import { getPreviewRedirectUrl } from "../../src/utils/redirects";
 
+// create endpoint
 // http://localhost:3000/api/preview/?postType=page&postId=30
 export default async function preview(req, res) {
   const { postType, postId } = req.query;
