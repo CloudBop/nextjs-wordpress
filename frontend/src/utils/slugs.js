@@ -17,19 +17,28 @@ export const handleRedirectsAndReturnData = (
   defaultProps,
   data,
   errors,
-  field
+  field,
+  isPreview = false,
+  loginRedirectURL = ""
 ) => {
+  if (isPreview && null === data?.[field]) {
+    return {
+      redirect: {
+        destination: loginRedirectURL || "/",
+        statusCode: 307
+      }
+    };
+  }
+
   if (isEmpty(data)) {
     return {
       redirect: {
-        //  https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503 - service unavailable
         destination: "/503",
         statusCode: 301
       }
     };
   }
 
-  // if field doesnt exist on data
   if (field && isEmpty(data?.[field])) {
     return {
       // returns the default 404 page with a status code of 404
@@ -38,4 +47,14 @@ export const handleRedirectsAndReturnData = (
   }
 
   return defaultProps;
+};
+
+export const getLoginPreviewRedirectUrl = (
+  postType = "",
+  previewPostId = ""
+) => {
+  //
+  return `/login/?postType=${postType || ""} &previewPostId=${
+    previewPostId || ""
+  }`;
 };
