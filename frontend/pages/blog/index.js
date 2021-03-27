@@ -2,7 +2,7 @@ import client from "../../src/apollo/client";
 import Layout from "../../src/components/layout/layout";
 import { PER_PAGE_FIRST, totalPagesCount } from "../../src/utils/pagination";
 // import Pagination from "../../src/components/blog/pagination";
-// import Posts from "../../src/components/blog/posts";
+import Posts from "../../src/components/blog/posts";
 import { handleRedirectsAndReturnData } from "../../src/utils/slugs";
 import { GET_POSTS } from "../../src/queries/posts/get-posts";
 
@@ -14,7 +14,9 @@ const Blog = ({ data }) => {
   return (
     <Layout data={data}>
       <h1>Blog</h1>
-      {/* <Posts posts={data?.posts?.edges ?? []} />
+      <Posts posts={data?.posts?.edges ?? []} />
+
+      {/* 
       <Pagination pagesCount={pagesCount} postName="blog" /> */}
     </Layout>
   );
