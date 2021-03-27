@@ -1,3 +1,6 @@
+/**
+ * /blog/
+ */
 import client from "../../src/apollo/client";
 import Layout from "../../src/components/layout/layout";
 import { PER_PAGE_FIRST, totalPagesCount } from "../../src/utils/pagination";
@@ -7,7 +10,6 @@ import { handleRedirectsAndReturnData } from "../../src/utils/slugs";
 import { GET_POSTS } from "../../src/queries/posts/get-posts";
 
 const Blog = ({ data }) => {
-  console.log(`data`, data);
   const pagesCount = totalPagesCount(
     data?.posts?.pageInfo?.offsetPagination?.total ?? 0
   );
