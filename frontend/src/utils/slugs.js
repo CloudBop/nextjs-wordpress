@@ -1,6 +1,7 @@
 import { isEmpty } from "lodash";
 
 export const isCustomPageUri = uri => {
+  // explicitly created, exclude from getPath build process
   const pagesToExclude = ["/", "/blog/", "/news/"];
 
   return pagesToExclude.includes(uri);
