@@ -65,6 +65,7 @@ const Nav = ({ header, headerMenus }) => {
               </Link>
             ))}
             <Link href={"/blog/"}>
+              {/* TODO- hardcode /blog/ as project constant */}
               <a
                 className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
                 data-cy="nav-item"
