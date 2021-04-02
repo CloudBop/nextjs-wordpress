@@ -18,7 +18,9 @@ function Pages({ data }) {
   }
 
   //
-  return <Layout data={data}>{router?.query?.slug.join("/")}</Layout>;
+  return (
+    <Layout data={data}>{<h1>{router?.query?.slug.join("/")}</h1>}</Layout>
+  );
 }
 export default Pages;
 
