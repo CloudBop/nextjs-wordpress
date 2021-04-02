@@ -1,19 +1,20 @@
 import Link from "next/link";
-// import Image from "../../image";
+import Image from "../../image";
 import { sanitize } from "../../../utils/misc";
 
 const Post = ({ post }) => {
   return (
     <div className="mb-8">
       <figure className="overflow-hidden mb-4">
-        {/* <Image
+        <Image
           {...post?.featuredImage?.node}
+          layout="fill"
+          // if layout fill, need width +height
           width="400"
           height="225"
-          layout="fill"
           containerClassNames="w-96 sm:-w-600px md:w-400px h-56 sm:h-338px md:h-225px"
           title={post?.title ?? ""}
-        /> */}
+        />
       </figure>
       <Link href={`/blog/${post?.slug}/`}>
         <a>
