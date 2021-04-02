@@ -6,13 +6,14 @@ import { isEmpty } from "lodash";
 import { sanitize } from "../../utils/misc";
 import PropTypes from "prop-types";
 function Layout({ data, isPost, children }) {
-  const { page, post, header, footer, headerMenus, footerMenus } = data || {};
+  const { page, post, posts, header, footer, headerMenus, footerMenus } =
+    data || {};
 
   // If it does not have either post or page.
-  if (isEmpty(page) && isEmpty(post)) {
+  if (isEmpty(page) && isEmpty(post) && isEmpty(posts)) {
     return null;
   }
-
+  // console.log(children);
   //
   const seo = isPost ? post?.seo ?? {} : page?.seo ?? {};
   const uri = isPost ? post?.uri ?? {} : page?.uri ?? {};
