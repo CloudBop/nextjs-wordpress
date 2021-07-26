@@ -22,7 +22,6 @@
   },
   "rules": {
     "camelcase": [1],
-    "space-in-parens": [1, "always"],
     "no-trailing-spaces": [1],
     "spaced-comment": [0],
     "padded-blocks": [0],
@@ -40,5 +39,8 @@
     "comma-dangle": 0,
     "lines-around-comment": 0,
     "template-curly-spacing": "off"
+  },
+  "removed-rules": {
+    "space-in-parens": [1, "always"]
   }
 }
