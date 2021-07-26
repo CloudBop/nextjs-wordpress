@@ -15,9 +15,6 @@ const cache = new InMemoryCache({
   resultCaching: false
 });
 
-const link = createHttpLink({
-  uri: `${process.env.NEXT_PUBLIC_WORDPRESS_SITE_URL}/graphql`
-});
 
 /**
  * The credentials: 'include' allows cookies to be automatically sent
@@ -25,6 +22,11 @@ const link = createHttpLink({
  *
  * @see https://www.apollographql.com/docs/react/networking/authentication/#cookie
  */
+const link = createHttpLink({
+  uri: `${process.env.NEXT_PUBLIC_WORDPRESS_SITE_URL}/graphql`,
+  // useful for testing, don't implement live
+  // credentials: "include"
+});
 
 const client = new ApolloClient({
   // connectToDevTools: true,
