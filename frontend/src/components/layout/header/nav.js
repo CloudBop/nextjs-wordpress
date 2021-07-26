@@ -1,6 +1,7 @@
 import { isEmpty } from "lodash";
 import Link from "next/link";
 import { useState } from "react";
+import { isCustomPageUri } from '../../../utils/slugs'
 
 const Nav = ({ header, headerMenus }) => {
   //
@@ -48,24 +49,31 @@ const Nav = ({ header, headerMenus }) => {
         </button>
       </div>
       <div
-        className={`${
-          isMenuVisible ? "max-h-full" : "h-0"
-        } overflow-hidden w-full lg:h-full lg:h-auto block flex-grow lg:flex lg:items-center lg:w-auto`}
+        className={`${isMenuVisible ? "max-h-full" : "h-0"
+          } overflow-hidden w-full lg:h-full lg:h-auto block flex-grow lg:flex lg:items-center lg:w-auto`}
       >
         {headerMenus?.length ? (
           <div className="text-sm lg:flex-grow">
-            {headerMenus?.map(menu => (
-              <Link key={menu?.node?.id} href={menu?.node?.path}>
-                <a
-                  className="block mt-4 lg:inline-block lg:mt-0 text-green-200 hover:text-white mr-4"
-                  data-cy="nav-item"
-                >
-                  {menu?.node?.label}
-                </a>
-              </Link>
-            ))}
+            {headerMenus?.map(menu => {
+
+              // exclude if is explicitily set in wordpress...
+              if (!isCustomPageUri(menu?.node?.path)) {
+                return (
+                  <Link key={menu?.node?.id} href={menu?.node?.path}>
+                    <a
+                      className="block mt-4 lg:inline-block lg:mt-0 text-green-200 hover:text-white mr-4"
+                      data-cy="nav-item"
+                    >
+                      {menu?.node?.label}
+                    </a>
+                  </Link>
+                )
+              }
+            })}
+
             <Link href={"/blog/"}>
-              {/* TODO- hardcode /blog/ as project constant */}
+              {/* explicitly hardcode, this is NOT customisable with the WP-ADMIN
+              TODO- hardcode /blog/ as project constant */}
               <a
                 className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
                 data-cy="nav-item"
@@ -73,8 +81,19 @@ const Nav = ({ header, headerMenus }) => {
                 Blog
               </a>
             </Link>
+            <Link href={"/news/"}>
+              {/* explicitly hardcode, this is NOT customisable with the WP-ADMIN
+              TODO- hardcode /blog/ as project constant */}
+              <a
+                className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+                data-cy="nav-item"
+              >
+                News
+              </a>
+            </Link>
           </div>
         ) : null}
+
       </div>
     </nav>
   );
