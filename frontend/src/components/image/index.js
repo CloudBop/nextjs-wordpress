@@ -50,6 +50,8 @@ const Image = props => {
     };
 
     return (
+      // https://nextjs.org/docs/api-reference/next/image
+      // https://nextjs.org/docs/basic-features/image-optimization
       <div className={cx("relative", containerClassNames)}>
         <Img {...attributes} />
       </div>
@@ -66,7 +68,6 @@ const Image = props => {
     return <Img {...attributes} />;
   }
 };
-
 Image.propTypes = {
   altText: PropTypes.string,
   title: PropTypes.string,

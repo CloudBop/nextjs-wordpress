@@ -15,14 +15,14 @@ import {
 import { handleRedirectsAndReturnData } from "../../../src/utils/slugs";
 
 /**
- * Pages that make up pagination
+ * Pages that make up pagination /blog/page/2
  *
  * @param {data} param0
  * @returns
  */
 
 const Page = ({ data }) => {
-  console.log(`data`, data);
+  // console.log(`data`, data);
   const { posts } = data;
   const router = useRouter();
 
@@ -33,9 +33,10 @@ const Page = ({ data }) => {
     (totalPostsCount - PER_PAGE_FIRST) / PER_PAGE_REST + 1
   );
 
-  // Redirecting to /blog if we are on page 1
+  // Redirecting to /blog if we are on blog/page/1
   const pageNo = router?.query?.pageNo ?? 1;
   if ("undefined" !== typeof window && "1" === pageNo) {
+    //redirect
     router.push("/blog");
   }
 
