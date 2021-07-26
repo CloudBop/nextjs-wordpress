@@ -30,7 +30,7 @@ services:
       PMA_ARBITRARY: 1
     restart: always
     ports:
-      - 8183:80
+      - 7183:80
 
   wordpress:
     depends_on:
@@ -39,7 +39,7 @@ services:
     build: ./php
     image: wordpress:latest
     ports:
-      - "8020:80"
+      - "7020:80"
     restart: always
     environment:
       WORDPRESS_DB_HOST: mysql:3306
