@@ -1,63 +1,63 @@
-import { useState } from "react";
-import { isEmpty } from "lodash";
-import validateAndSanitizeLoginForm from "../src/utils/validator/login";
-import axios from "axios";
-import { sanitize } from "../src/utils/misc";
-import client from "../src/apollo/client";
-import { GET_PAGE } from "../src/queries/pages/get-page";
-import Layout from "../src/components/layout/layout";
-import { useRouter } from "next/router";
-import { handleRedirectsAndReturnData } from "../src/utils/slugs";
-import { getPreviewRedirectUrl } from "../src/utils/redirects";
+import { useState } from 'react';
+import { isEmpty } from 'lodash';
+import validateAndSanitizeLoginForm from '../src/utils/validator/login';
+import axios from 'axios';
+import { sanitize } from '../src/utils/misc';
+import client from '../src/apollo/client';
+import { GET_PAGE } from '../src/queries/pages/get-page';
+import Layout from '../src/components/layout/layout';
+import { useRouter } from 'next/router';
+import { handleRedirectsAndReturnData } from '../src/utils/slugs';
+import { getPreviewRedirectUrl } from '../src/utils/redirects';
 
-const Login = ({ data }) => {
+const Login = ( { data } ) => {
   const router = useRouter();
-  const [loginFields, setLoginFields] = useState({
-    username: "",
-    password: ""
-  });
+  const [ loginFields, setLoginFields ] = useState( {
+    username: '',
+    password: ''
+  } );
 
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [ errorMessage, setErrorMessage ] = useState( null );
+  const [ loading, setLoading ] = useState( false );
 
   const onFormSubmit = event => {
     event.preventDefault();
-    setErrorMessage(null);
+    setErrorMessage( null );
     const { postType, previewPostId } = router?.query ?? {};
 
     // Validation and Sanitization.
-    const validationResult = validateAndSanitizeLoginForm({
-      username: loginFields?.username ?? "",
-      password: loginFields?.password ?? ""
-    });
+    const validationResult = validateAndSanitizeLoginForm( {
+      username: loginFields?.username ?? '',
+      password: loginFields?.password ?? ''
+    } );
 
-    if (validationResult.isValid) {
-      setLoading(true);
-      return axios({
+    if ( validationResult.isValid ) {
+      setLoading( true );
+      return axios( {
         data: {
-          username: validationResult?.sanitizedData?.username ?? "",
-          password: validationResult?.sanitizedData?.password ?? ""
+          username: validationResult?.sanitizedData?.username ?? '',
+          password: validationResult?.sanitizedData?.password ?? ''
         },
-        method: "post",
-        url: "/api/login"
-      })
-        .then(data => {
-          setLoading(false);
+        method: 'post',
+        url: '/api/login'
+      } )
+        .then( data => {
+          setLoading( false );
           const { success } = data?.data ?? {};
 
           // If its a preview request
-          if (success && postType && previewPostId) {
-            const previewUrl = getPreviewRedirectUrl(postType, previewPostId);
-            router.push(previewUrl);
+          if ( success && postType && previewPostId ) {
+            const previewUrl = getPreviewRedirectUrl( postType, previewPostId );
+            router.push( previewUrl );
           }
           return data?.data?.success;
-        })
-        .catch(() => {
-          setLoading(false);
+        } )
+        .catch( () => {
+          setLoading( false );
           return false;
-        });
+        } );
     } else {
-      setClientSideError(validationResult);
+      setClientSideError( validationResult );
     }
   };
 
@@ -70,17 +70,17 @@ const Login = ({ data }) => {
    * @param {Object} validationResult Validation Data result.
    */
   const setClientSideError = validationResult => {
-    if (validationResult.errors.password) {
-      setErrorMessage(validationResult.errors.password);
+    if ( validationResult.errors.password ) {
+      setErrorMessage( validationResult.errors.password );
     }
 
-    if (validationResult.errors.username) {
-      setErrorMessage(validationResult.errors.username);
+    if ( validationResult.errors.username ) {
+      setErrorMessage( validationResult.errors.username );
     }
   };
 
   const handleOnChange = event => {
-    setLoginFields({ ...loginFields, [event.target.name]: event.target.value });
+    setLoginFields( { ...loginFields, [event.target.name]: event.target.value } );
   };
 
   const { username, password } = loginFields;
@@ -90,10 +90,10 @@ const Login = ({ data }) => {
         <h4 className="text-gray-900 text-lg font-medium title-font mb-5 block">
           Login
         </h4>
-        {!isEmpty(errorMessage) && (
+        {! isEmpty( errorMessage ) && (
           <div
             className="text-red-600"
-            dangerouslySetInnerHTML={{ __html: sanitize(errorMessage) }}
+            dangerouslySetInnerHTML={{ __html: sanitize( errorMessage ) }}
           />
         )}
         <form onSubmit={onFormSubmit} className="mb-4">
@@ -132,13 +132,13 @@ const Login = ({ data }) => {
 };
 export default Login;
 
-export async function getStaticProps(context) {
-  const { data, errors } = await client.query({
+export async function getStaticProps( context ) {
+  const { data, errors } = await client.query( {
     query: GET_PAGE,
     variables: {
-      uri: "/"
+      uri: '/'
     }
-  });
+  } );
 
   const defaultProps = {
     props: {
@@ -152,5 +152,5 @@ export async function getStaticProps(context) {
     revalidate: 1
   };
 
-  return handleRedirectsAndReturnData(defaultProps, data, errors, "page");
+  return handleRedirectsAndReturnData( defaultProps, data, errors, 'page' );
 }

@@ -1,10 +1,10 @@
-import Link from "next/link";
-import client from "../src/apollo/client";
-import Header from "../src/components/layout/header";
-import Footer from "../src/components/layout/footer";
-import { GET_MENUS } from "../src/queries/get-menus";
+import Link from 'next/link';
+import client from '../src/apollo/client';
+import Header from '../src/components/layout/header';
+import Footer from '../src/components/layout/footer';
+import { GET_MENUS } from '../src/queries/get-menus';
 
-function Error404({ data }) {
+function Error404( { data } ) {
   const { header, footer, headerMenus, footerMenus } = data || {};
   return (
     <>
@@ -42,9 +42,9 @@ function Error404({ data }) {
 export default Error404;
 
 export async function getStaticProps() {
-  const { data } = await client.query({
+  const { data } = await client.query( {
     query: GET_MENUS
-  });
+  } );
 
   return {
     props: {

@@ -1,4 +1,4 @@
-import * as SvgIconsComponent from "../components/icons";
+import * as SvgIconsComponent from '../components/icons';
 
 /**
  * Icons Component map.
@@ -14,7 +14,7 @@ export const getIconComponentByName = name => {
     youtube: SvgIconsComponent.Youtube
   };
 
-  if (name in ComponentsMap) {
+  if ( name in ComponentsMap ) {
     const IconComponent = ComponentsMap[name];
     return <IconComponent />;
   } else {

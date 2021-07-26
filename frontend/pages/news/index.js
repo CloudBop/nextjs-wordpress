@@ -5,7 +5,7 @@ import { handleRedirectsAndReturnData } from '../../src/utils/slugs';
 import { GET_NEWS } from '../../src/queries/news/get-news';
 import LoadMorePosts from '../../src/components/news/load-more-posts';
 
-const News = ({ data }) => {
+const News = ( { data } ) => {
   return (
     <Layout data={data}>
       <LoadMorePosts posts={data?.posts} />
@@ -16,14 +16,14 @@ const News = ({ data }) => {
 export default News;
 
 export async function getStaticProps() {
-  const { data, errors } = await client.query({
+  const { data, errors } = await client.query( {
     query: GET_NEWS,
     variables: {
       uri: '/news/',
       first: PER_PAGE_FIRST,
       after: null,
     },
-  });
+  } );
 
   const defaultProps = {
     props: {
@@ -37,5 +37,5 @@ export async function getStaticProps() {
     revalidate: 1,
   };
 
-  return handleRedirectsAndReturnData(defaultProps, data, errors, 'posts');
+  return handleRedirectsAndReturnData( defaultProps, data, errors, 'posts' );
 }

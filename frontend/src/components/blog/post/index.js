@@ -1,8 +1,8 @@
-import Link from "next/link";
-import Image from "../../image";
-import { sanitize } from "../../../utils/misc";
+import Link from 'next/link';
+import Image from '../../image';
+import { sanitize } from '../../../utils/misc';
 
-const Post = ({ post }) => {
+const Post = ( { post } ) => {
   return (
     <div className="mb-8">
       <figure className="overflow-hidden mb-4">
@@ -13,19 +13,19 @@ const Post = ({ post }) => {
           width="400"
           height="225"
           containerClassNames="w-96 sm:-w-600px md:w-400px h-56 sm:h-338px md:h-225px"
-          title={post?.title ?? ""}
+          title={post?.title ?? ''}
         />
       </figure>
       <Link href={`/blog/${post?.slug}/`}>
         <a>
           <h2
             className="font-bold mb-3 text-lg hover:text-blue-500"
-            dangerouslySetInnerHTML={{ __html: sanitize(post?.title ?? "") }}
+            dangerouslySetInnerHTML={{ __html: sanitize( post?.title ?? '' ) }}
           />
         </a>
       </Link>
       <div
-        dangerouslySetInnerHTML={{ __html: sanitize(post?.excerpt ?? "") }}
+        dangerouslySetInnerHTML={{ __html: sanitize( post?.excerpt ?? '' ) }}
       />
     </div>
   );

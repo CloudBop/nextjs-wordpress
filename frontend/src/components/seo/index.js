@@ -1,5 +1,5 @@
-import { NextSeo } from "next-seo";
-import PropTypes from "prop-types";
+import { NextSeo } from 'next-seo';
+import PropTypes from 'prop-types';
 
 /**
  * Custom SEO component
@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
  * @returns {JSX.Element}
  *
  */
-const Seo = ({ seo, uri }) => {
+const Seo = ( { seo, uri } ) => {
   const {
     title,
     metaDesc,
@@ -28,9 +28,9 @@ const Seo = ({ seo, uri }) => {
   // create url of site
   const currentLocation = process.browser ? window.location.origin : null;
   const opengraphUrl =
-    (process.env.NEXT_PUBLIC_NEXTJS_SITE_URL
-      ? process.env.NEXT_PUBLIC_NEXTJS_SITE_URL
-      : currentLocation) + uri;
+    ( process.env.NEXT_PUBLIC_NEXTJS_SITE_URL ?
+      process.env.NEXT_PUBLIC_NEXTJS_SITE_URL :
+      currentLocation ) + uri;
 
   return (
     <NextSeo
@@ -40,8 +40,8 @@ const Seo = ({ seo, uri }) => {
       noindex={metaRobotsNoindex}
       nofollow={metaRobotsNofollow}
       openGraph={{
-        type: "website",
-        locale: "en_US",
+        type: 'website',
+        locale: 'en_US',
         url: opengraphUrl,
         title: opengraphTitle,
         description: opengraphDescription,
@@ -57,9 +57,9 @@ const Seo = ({ seo, uri }) => {
         /* eslint-enable */
       }}
       twitter={{
-        handle: "@Codeytek",
-        site: "@Codeytek",
-        cardType: "summary_large_image"
+        handle: '@Codeytek',
+        site: '@Codeytek',
+        cardType: 'summary_large_image'
       }}
     />
   );
@@ -71,18 +71,18 @@ Seo.propTypes = {
 
 Seo.defaultProps = {
   seo: {
-    canonical: "",
-    title: "",
-    metaDesc: "",
-    metaRobotsNoindex: "",
-    metaRobotsNofollow: "",
-    opengraphDescription: "",
-    opengraphTitle: "",
+    canonical: '',
+    title: '',
+    metaDesc: '',
+    metaRobotsNoindex: '',
+    metaRobotsNofollow: '',
+    opengraphDescription: '',
+    opengraphTitle: '',
     opengraphImage: {
-      sourceUrl: ""
+      sourceUrl: ''
     },
-    opengraphUrl: "",
-    opengraphSiteName: ""
+    opengraphUrl: '',
+    opengraphSiteName: ''
   }
 };
 

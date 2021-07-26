@@ -1,15 +1,15 @@
-import { isEmpty } from "lodash";
-import Link from "next/link";
-import { useState } from "react";
-import { isCustomPageUri } from '../../../utils/slugs'
+import { isEmpty } from 'lodash';
+import Link from 'next/link';
+import { useState } from 'react';
+import { isCustomPageUri } from '../../../utils/slugs';
 
-const Nav = ({ header, headerMenus }) => {
+const Nav = ( { header, headerMenus } ) => {
   //
-  if (isEmpty(headerMenus)) {
+  if ( isEmpty( headerMenus ) ) {
     return null;
   }
 
-  const [isMenuVisible, setMenuVisibility] = useState(false);
+  const [ isMenuVisible, setMenuVisibility ] = useState( false );
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-green-500 p-6">
@@ -17,7 +17,7 @@ const Nav = ({ header, headerMenus }) => {
         <Link href="/">
           <a>
             <img
-              src={header?.siteLogoUrl ?? "/images/site-logo.png"}
+              src={header?.siteLogoUrl ?? '/images/site-logo.png'}
               alt="Site Logo"
               width="48"
               height="48"
@@ -34,7 +34,7 @@ const Nav = ({ header, headerMenus }) => {
       </div>
       <div className="block lg:hidden">
         <button
-          onClick={() => setMenuVisibility(!isMenuVisible)}
+          onClick={() => setMenuVisibility( ! isMenuVisible )}
           className="flex items-center px-3 py-2 border rounded text-green-200 border-green-400 hover:text-white hover:border-white"
           data-cy="mobile-menu-btn"
         >
@@ -49,15 +49,15 @@ const Nav = ({ header, headerMenus }) => {
         </button>
       </div>
       <div
-        className={`${isMenuVisible ? "max-h-full" : "h-0"
+        className={`${isMenuVisible ? 'max-h-full' : 'h-0'
           } overflow-hidden w-full lg:h-full lg:h-auto block flex-grow lg:flex lg:items-center lg:w-auto`}
       >
         {headerMenus?.length ? (
           <div className="text-sm lg:flex-grow">
-            {headerMenus?.map(menu => {
+            {headerMenus?.map( menu => {
 
               // exclude if is explicitily set in wordpress...
-              if (!isCustomPageUri(menu?.node?.path)) {
+              if ( ! isCustomPageUri( menu?.node?.path ) ) {
                 return (
                   <Link key={menu?.node?.id} href={menu?.node?.path}>
                     <a
@@ -67,11 +67,11 @@ const Nav = ({ header, headerMenus }) => {
                       {menu?.node?.label}
                     </a>
                   </Link>
-                )
+                );
               }
-            })}
+            } )}
 
-            <Link href={"/blog/"}>
+            <Link href={'/blog/'}>
               {/* explicitly hardcode, this is NOT customisable with the WP-ADMIN
               TODO- hardcode /blog/ as project constant */}
               <a
@@ -81,7 +81,7 @@ const Nav = ({ header, headerMenus }) => {
                 Blog
               </a>
             </Link>
-            <Link href={"/news/"}>
+            <Link href={'/news/'}>
               {/* explicitly hardcode, this is NOT customisable with the WP-ADMIN
               TODO- hardcode /blog/ as project constant */}
               <a

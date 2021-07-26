@@ -1,37 +1,37 @@
-import client from "../src/apollo/client";
-import { GET_PAGES_URI } from "../src/queries/pages/get-pages";
-import { GET_PAGE } from "../src/queries/pages/get-page";
-import { useRouter } from "next/router";
-import Layout from "../src/components/layout/layout";
+import client from '../src/apollo/client';
+import { GET_PAGES_URI } from '../src/queries/pages/get-pages';
+import { GET_PAGE } from '../src/queries/pages/get-page';
+import { useRouter } from 'next/router';
+import Layout from '../src/components/layout/layout';
 import {
   FALLBACK,
   handleRedirectsAndReturnData,
   isCustomPageUri
-} from "../src/utils/slugs";
-import { isEmpty } from "lodash";
-function Pages({ data }) {
+} from '../src/utils/slugs';
+import { isEmpty } from 'lodash';
+function Pages( { data } ) {
   const router = useRouter();
 
   // if page not generated@build then fallback as it will need to load while getStaticProps() is running
-  if (router.isFallback) {
+  if ( router.isFallback ) {
     return <div>Loading...</div>;
   }
 
   //
   return (
-    <Layout data={data}>{<h1>{router?.query?.slug.join("/")}</h1>}</Layout>
+    <Layout data={data}>{<h1>{router?.query?.slug.join( '/' )}</h1>}</Layout>
   );
 }
 export default Pages;
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps( { params } ) {
   // params is
-  const { data, errors } = await client.query({
+  const { data, errors } = await client.query( {
     query: GET_PAGE,
     variables: {
-      uri: params?.slug.join("/")
+      uri: params?.slug.join( '/' )
     }
-  });
+  } );
 
   const defaultProps = {
     props: {
@@ -45,7 +45,7 @@ export async function getStaticProps({ params }) {
     revalidate: 1
   };
 
-  return handleRedirectsAndReturnData(defaultProps, data, errors, "page");
+  return handleRedirectsAndReturnData( defaultProps, data, errors, 'page' );
 }
 /**
  * Since the page name uses catch-all routes,
@@ -65,21 +65,21 @@ export async function getStaticProps({ params }) {
  * @returns {Promise<{paths: [], fallback: boolean}>}
  */
 export async function getStaticPaths() {
-  const { data } = await client.query({
+  const { data } = await client.query( {
     query: GET_PAGES_URI
-  });
+  } );
 
   const pathsData = [];
 
   data?.pages?.nodes &&
-    data?.pages?.nodes.map(page => {
+    data?.pages?.nodes.map( page => {
       // dont build customPageUri or empty slugs
-      if (!isEmpty(page?.uri) && !isCustomPageUri(page?.uri)) {
+      if ( ! isEmpty( page?.uri ) && ! isCustomPageUri( page?.uri ) ) {
         // for slug = /foo/bar === [foo,bar]
-        const slugs = page?.uri?.split("/").filter(pageSlug => pageSlug);
-        pathsData.push({ params: { slug: slugs } });
+        const slugs = page?.uri?.split( '/' ).filter( pageSlug => pageSlug );
+        pathsData.push( { params: { slug: slugs } } );
       }
-    });
+    } );
 
   return {
     // at build

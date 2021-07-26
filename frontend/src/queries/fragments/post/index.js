@@ -10,5 +10,5 @@ const PostFragment = `
     }
   }
  }
-`
+`;
 export default PostFragment;

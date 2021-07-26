@@ -1,25 +1,25 @@
-import { isEmpty } from "lodash";
+import { isEmpty } from 'lodash';
 
-export const getPreviewRedirectUrl = (postType = "", previewPostId = "") => {
-  if (isEmpty(postType) || isEmpty(previewPostId)) {
-    return "";
+export const getPreviewRedirectUrl = ( postType = '', previewPostId = '' ) => {
+  if ( isEmpty( postType ) || isEmpty( previewPostId ) ) {
+    return '';
   }
 
-  switch (postType) {
-    case "post":
+  switch ( postType ) {
+    case 'post':
       return `/blog/preview/${previewPostId}/`;
-    case "page":
+    case 'page':
       return `/page/preview/${previewPostId}/`;
     default:
-      return "/";
+      return '/';
   }
 };
 
 export const getLoginPreviewRedirectUrl = (
-  postType = "",
-  previewPostId = ""
+  postType = '',
+  previewPostId = ''
 ) => {
-  return `/login/?postType=${postType || ""}&previewPostId=${
-    previewPostId || ""
+  return `/login/?postType=${postType || ''}&previewPostId=${
+    previewPostId || ''
   }`;
 };

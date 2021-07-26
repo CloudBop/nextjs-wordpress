@@ -1,8 +1,8 @@
-import Img from "next/image";
+import Img from 'next/image';
 
-import PropTypes from "prop-types";
-import cx from "classnames";
-import { DEFAULT_IMG_URL } from "../../utils/constants";
+import PropTypes from 'prop-types';
+import cx from 'classnames';
+import { DEFAULT_IMG_URL } from '../../utils/constants';
 
 /**
  * Image Component. - next/image wrapper
@@ -30,7 +30,7 @@ const Image = props => {
     ...rest
   } = props;
 
-  if (!sourceUrl && !showDefault) {
+  if ( ! sourceUrl && ! showDefault ) {
     return null;
   }
 
@@ -40,28 +40,28 @@ const Image = props => {
    * That's we need to wrap our image in a container and give it a height and width.
    * Notice that in this case, the given height and width is being used for container and not img.
    */
-  if ("fill" === layout) {
+  if ( 'fill' === layout ) {
     const attributes = {
       alt: altText || title,
-      src: sourceUrl || (showDefault ? DEFAULT_IMG_URL : ""),
-      layout: "fill",
-      className: cx("object-cover", className),
+      src: sourceUrl || ( showDefault ? DEFAULT_IMG_URL : '' ),
+      layout: 'fill',
+      className: cx( 'object-cover', className ),
       ...rest
     };
 
     return (
       // https://nextjs.org/docs/api-reference/next/image
       // https://nextjs.org/docs/basic-features/image-optimization
-      <div className={cx("relative", containerClassNames)}>
+      <div className={cx( 'relative', containerClassNames )}>
         <Img {...attributes} />
       </div>
     );
   } else {
     const attributes = {
       alt: altText || title,
-      src: sourceUrl || (showDefault ? DEFAULT_IMG_URL : ""),
-      width: width || "auto",
-      height: height || "auto",
+      src: sourceUrl || ( showDefault ? DEFAULT_IMG_URL : '' ),
+      width: width || 'auto',
+      height: height || 'auto',
       className,
       ...rest
     };
@@ -80,12 +80,12 @@ Image.propTypes = {
 };
 
 Image.defaultProps = {
-  altText: "",
-  title: "",
-  sourceUrl: "",
+  altText: '',
+  title: '',
+  sourceUrl: '',
   showDefault: true,
-  containerClassNames: "",
-  className: "post__image"
+  containerClassNames: '',
+  className: 'post__image'
 };
 
 export default Image;

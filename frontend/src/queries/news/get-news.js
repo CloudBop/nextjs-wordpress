@@ -1,9 +1,9 @@
 
-import { gql } from '@apollo/client'
-import MenuFragment from '../fragments/menus'
-import SeoFragment from "../fragments/seo";
-import { HeaderFooter } from "../get-menus";
-import ImageFragment from "../fragments/image";
+import { gql } from '@apollo/client';
+import MenuFragment from '../fragments/menus';
+import SeoFragment from '../fragments/seo';
+import { HeaderFooter } from '../get-menus';
+import ImageFragment from '../fragments/image';
 import PostFragment from '../fragments/post';
 
 /**

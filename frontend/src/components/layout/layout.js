@@ -1,16 +1,16 @@
-import Footer from "./footer";
-import Header from "./header";
-import Head from "next/head";
-import Seo from "../seo";
-import { isEmpty } from "lodash";
-import { sanitize } from "../../utils/misc";
-import PropTypes from "prop-types";
-function Layout({ data, isPost, children }) {
+import Footer from './footer';
+import Header from './header';
+import Head from 'next/head';
+import Seo from '../seo';
+import { isEmpty } from 'lodash';
+import { sanitize } from '../../utils/misc';
+import PropTypes from 'prop-types';
+function Layout( { data, isPost, children } ) {
   const { page, post, posts, header, footer, headerMenus, footerMenus } =
     data || {};
 
   // If it does not have either post or page.
-  if (isEmpty(page) && isEmpty(post) && isEmpty(posts)) {
+  if ( isEmpty( page ) && isEmpty( post ) && isEmpty( posts ) ) {
     return null;
   }
   // console.log(children);
@@ -28,7 +28,7 @@ function Layout({ data, isPost, children }) {
             type="application/ld+json"
             className="yoast-schema-graph"
             key="yoastSchema"
-            dangerouslySetInnerHTML={{ __html: sanitize(seo.schemaDetails) }}
+            dangerouslySetInnerHTML={{ __html: sanitize( seo.schemaDetails ) }}
           />
         ) : null}
       </Head>

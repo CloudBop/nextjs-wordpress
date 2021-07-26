@@ -1,14 +1,14 @@
-import { isEmpty } from "lodash";
+import { isEmpty } from 'lodash';
 
 export const isCustomPageUri = uri => {
   // explicitly created, exclude from getPath build process
-  const pagesToExclude = ["/", "/blog/", "/news/"];
+  const pagesToExclude = [ '/', '/blog/', '/news/' ];
 
-  return pagesToExclude.includes(uri);
+  return pagesToExclude.includes( uri );
 };
 // properly 404
 // https://nextjs.org/blog/next-10#blocking-fallback-for-getstaticpaths
-export const FALLBACK = "blocking";
+export const FALLBACK = 'blocking';
 // pages to pre-render SSR
 export const PRE_RENDER_PAGES_COUNT = 10;
 //
@@ -20,27 +20,27 @@ export const handleRedirectsAndReturnData = (
   errors,
   field,
   isPreview = false,
-  loginRedirectURL = ""
+  loginRedirectURL = ''
 ) => {
-  if (isPreview && null === data?.[field]) {
+  if ( isPreview && null === data?.[field] ) {
     return {
       redirect: {
-        destination: loginRedirectURL || "/",
+        destination: loginRedirectURL || '/',
         statusCode: 307
       }
     };
   }
 
-  if (isEmpty(data)) {
+  if ( isEmpty( data ) ) {
     return {
       redirect: {
-        destination: "/503",
+        destination: '/503',
         statusCode: 301
       }
     };
   }
 
-  if (field && isEmpty(data?.[field])) {
+  if ( field && isEmpty( data?.[field] ) ) {
     return {
       // returns the default 404 page with a status code of 404
       notFound: true
@@ -51,11 +51,11 @@ export const handleRedirectsAndReturnData = (
 };
 
 export const getLoginPreviewRedirectUrl = (
-  postType = "",
-  previewPostId = ""
+  postType = '',
+  previewPostId = ''
 ) => {
   //
-  return `/login/?postType=${postType || ""} &previewPostId=${
-    previewPostId || ""
+  return `/login/?postType=${postType || ''} &previewPostId=${
+    previewPostId || ''
   }`;
 };

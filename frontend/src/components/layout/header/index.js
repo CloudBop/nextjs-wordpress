@@ -1,6 +1,6 @@
-import Nav from "./nav";
+import Nav from './nav';
 
-function Header({ headerMenus, header }) {
+function Header( { headerMenus, header } ) {
   return (
     <header>
       <Nav header={header} headerMenus={headerMenus} />

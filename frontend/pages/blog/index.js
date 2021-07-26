@@ -1,15 +1,15 @@
 /**
  * /blog/
  */
-import client from "../../src/apollo/client";
-import Layout from "../../src/components/layout/layout";
-import { PER_PAGE_FIRST, totalPagesCount } from "../../src/utils/pagination";
-import Pagination from "../../src/components/blog/pagination";
-import Posts from "../../src/components/blog/posts";
-import { handleRedirectsAndReturnData } from "../../src/utils/slugs";
-import { GET_POSTS } from "../../src/queries/posts/get-posts";
+import client from '../../src/apollo/client';
+import Layout from '../../src/components/layout/layout';
+import { PER_PAGE_FIRST, totalPagesCount } from '../../src/utils/pagination';
+import Pagination from '../../src/components/blog/pagination';
+import Posts from '../../src/components/blog/posts';
+import { handleRedirectsAndReturnData } from '../../src/utils/slugs';
+import { GET_POSTS } from '../../src/queries/posts/get-posts';
 
-const Blog = ({ data }) => {
+const Blog = ( { data } ) => {
   const pagesCount = totalPagesCount(
     data?.posts?.pageInfo?.offsetPagination?.total ?? 0
   );
@@ -27,14 +27,14 @@ const Blog = ({ data }) => {
 export default Blog;
 
 export async function getStaticProps() {
-  const { data, errors } = await client.query({
+  const { data, errors } = await client.query( {
     query: GET_POSTS,
     variables: {
-      uri: "/blog/",
+      uri: '/blog/',
       perPage: PER_PAGE_FIRST,
       offset: null
     }
-  });
+  } );
 
   const defaultProps = {
     props: {
@@ -48,5 +48,5 @@ export async function getStaticProps() {
     revalidate: 1
   };
 
-  return handleRedirectsAndReturnData(defaultProps, data, errors, "posts");
+  return handleRedirectsAndReturnData( defaultProps, data, errors, 'posts' );
 }
