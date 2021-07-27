@@ -1,5 +1,9 @@
 // taken from - https://github.com/vercel/next.js/blob/master/examples/with-strict-csp/pages/_document.js
 
+export default function Dummy() {
+  return <div> dummy </div>
+}
+
 // import crypto from 'crypto'
 // import Document, { Html, Head, Main, NextScript } from 'next/document'
 // const cspHashOf = (text) => {
