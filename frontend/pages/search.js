@@ -10,7 +10,7 @@ import LoadMorePosts from '../src/components/news/load-more-posts'
 import { handleRedirectsAndReturnData } from '../src/utils/slugs'
 import SearchBox from '../src/components/search/search-box'
 import { useLazyQuery } from '@apollo/client'
-import { GET_SEARCH_RESULTS_WITH_TOTAL_PAGES } from '../src/queries/search/get-search-results'
+import { GET_SEARCH_RESULTS_WITH_TOTAL_PAGES, GET_SEARCH_RESULTS } from '../src/queries/search/get-search-results'
 
 function Search({ data }) {
   const searchQueryString = process.browser ? (Router?.query?.s ?? '') : '';
@@ -86,6 +86,8 @@ function Search({ data }) {
       <LoadMorePosts
         posts={queryResultPosts}
         classes="md:container px-5 py-12 mx-auto min-h-almost-screen"
+        graphQLQuery={GET_SEARCH_RESULTS}
+        searchQuery={searchQuery}
       />
       <Footer footer={footer} footerMenus={footerMenus?.edges ?? []} />
     </>
