@@ -28,5 +28,30 @@ module.exports = {
    */
   images: {
     domains: [allowedImageWordPressDomain, "via.placeholder.com"]
-  }
+  },
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
+  async headers() {
+    return [
+      {
+        // set this for every url
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            // iframes, embeded objects...
+            value: 'DENY',
+          },
+          {
+            // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+        ],
+      },
+    ];
+  },
 };
