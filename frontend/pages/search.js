@@ -9,6 +9,9 @@ import Footer from '../src/components/layout/footer'
 import LoadMorePosts from '../src/components/news/load-more-posts'
 import { handleRedirectsAndReturnData } from '../src/utils/slugs'
 import SearchBox from '../src/components/search/search-box'
+import ResultInfo from '../src/components/search/result-info'
+import ErrorMessage from '../src/components/error'
+import Loading from '../src/components/loading'
 import { useLazyQuery } from '@apollo/client'
 import { GET_SEARCH_RESULTS_WITH_TOTAL_PAGES, GET_SEARCH_RESULTS } from '../src/queries/search/get-search-results'
 
@@ -83,6 +86,9 @@ function Search({ data }) {
         setSearchQuery={setSearchQuery}
         handleSearchFormSubmit={handleSearchFormSubmit}
       />
+      <ResultInfo showResultInfo={showResultInfo} totalPostResultCount={totalPostResultCount} classnames="mt-4 text-center" />
+      <ErrorMessage text={searchError} classes="max-w-xl mx-auto -mt-8" />
+      <Loading showSpinner visible={loading} classes="mx-auto text-center -mt-8" />
       <LoadMorePosts
         posts={queryResultPosts}
         classes="md:container px-5 py-12 mx-auto min-h-almost-screen"
