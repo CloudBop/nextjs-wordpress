@@ -16,8 +16,11 @@ import { useLazyQuery } from '@apollo/client'
 import { GET_SEARCH_RESULTS_WITH_TOTAL_PAGES, GET_SEARCH_RESULTS } from '../src/queries/search/get-search-results'
 
 function Search({ data }) {
+  // url-params
   const searchQueryString = process.browser ? (Router?.query?.s ?? '') : '';
+
   const { header, footer, headerMenus, footerMenus, slug } = data || {}
+
   const [searchQuery, setSearchQuery] = useState('');
   const [searchError, setSearchError] = useState('');
   const [queryResultPosts, setQueryResultPosts] = useState({});
@@ -26,7 +29,7 @@ function Search({ data }) {
   const [fetchPosts, { loading }] = useLazyQuery(GET_SEARCH_RESULTS_WITH_TOTAL_PAGES, {
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) => {
-      console.log(`data?.posts`, data?.posts);
+      // console.log(`data?.posts`, data?.posts);
       setQueryResultPosts(data?.posts ?? {});
       setShowResultInfo(true);
     },
@@ -73,7 +76,7 @@ function Search({ data }) {
         }
       });
     }
-
+    // only invoke if set
   }, [searchQueryString]);
 
   const totalPostResultCount = queryResultPosts?.pageInfo?.offsetPagination?.total;
