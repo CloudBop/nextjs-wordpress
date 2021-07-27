@@ -1,19 +1,79 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { GET_MENUS } from '../src/queries/get-menus'
+import { PER_PAGE_FIRST } from '../src/utils/pagination'
+import Router from 'next/router';
+import { isEmpty } from 'lodash';
 import client from '../src/apollo/client'
 import Header from '../src/components/layout/header'
 import Footer from '../src/components/layout/footer'
+import LoadMorePosts from '../src/components/news/load-more-posts'
 import { handleRedirectsAndReturnData } from '../src/utils/slugs'
 import SearchBox from '../src/components/search/search-box'
+import { useLazyQuery } from '@apollo/client'
+import { GET_SEARCH_RESULTS_WITH_TOTAL_PAGES } from '../src/queries/search/get-search-results'
+
 function Search({ data }) {
+  const searchQueryString = process.browser ? (Router?.query?.s ?? '') : '';
   const { header, footer, headerMenus, footerMenus, slug } = data || {}
-
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchError, setSearchError] = useState('');
+  const [queryResultPosts, setQueryResultPosts] = useState({});
+  const [showResultInfo, setShowResultInfo] = useState(false);
 
-  const handleSearchFormSubmit = (evt) => {
-    evt.preventDefault();
-    return null
-  }
+  const [fetchPosts, { loading }] = useLazyQuery(GET_SEARCH_RESULTS_WITH_TOTAL_PAGES, {
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data) => {
+      console.log(`data?.posts`, data?.posts);
+      setQueryResultPosts(data?.posts ?? {});
+      setShowResultInfo(true);
+    },
+    onError: (error) => {
+      setSearchError(error?.graphQLErrors ?? '');
+    }
+  });
+
+  const handleSearchFormSubmit = (event) => {
+
+    event.preventDefault();
+    setShowResultInfo(false);
+
+    if (isEmpty(searchQuery)) {
+      setSearchError('Please enter text to search');
+      setQueryResultPosts({});
+      return null;
+    }
+
+    setSearchError('');
+
+    fetchPosts({
+      variables: {
+        first: PER_PAGE_FIRST,
+        after: null,
+        query: searchQuery
+      }
+    });
+  };
+
+  useEffect(() => {
+    /**
+     * If the query params is set, set the searchQuery in the in
+     * 1. Set the search input value to that query.
+     * 2. Call fetchPosts to get the results as per the query string from query params.
+     */
+    if (searchQueryString) {
+      setSearchQuery(searchQueryString);
+      fetchPosts({
+        variables: {
+          first: PER_PAGE_FIRST,
+          after: null,
+          query: searchQueryString
+        }
+      });
+    }
+
+  }, [searchQueryString]);
+
+  const totalPostResultCount = queryResultPosts?.pageInfo?.offsetPagination?.total;
 
   return (
     <>
@@ -22,6 +82,10 @@ function Search({ data }) {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         handleSearchFormSubmit={handleSearchFormSubmit}
+      />
+      <LoadMorePosts
+        posts={queryResultPosts}
+        classes="md:container px-5 py-12 mx-auto min-h-almost-screen"
       />
       <Footer footer={footer} footerMenus={footerMenus?.edges ?? []} />
     </>
