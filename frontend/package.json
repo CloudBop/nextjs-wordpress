@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.12",
+    "@wordpress/base-styles": "^3.6.0",
+    "@wordpress/block-library": "^4.0.0",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "cookie": "^0.4.1",
